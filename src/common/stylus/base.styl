@@ -1,0 +1,27 @@
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-aspect-ratio: 1.5)
+ .border-1px
+  &::after
+    -webkit-transform : scaleY(0.7)
+    transform : scaleY(0.7)
+
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-aspect-ratio: 2)
+ .border-1px
+  &::after
+    -webkit-transform : scaleY(0.5)
+    transform : scaleY(0.5)
+
+body, html {
+  line-height 1px
+  font-weight 200px
+  background-color
+  font-family 'PingFang SC','STHertiSC-Light','HelveTica-Light', Arial, sans-serif
+}
+.clearFix
+  display inline-block
+  &:after
+    display block
+    content "."
+    height 0
+    line-height 0
+    clear both
+    visibility hidden
