@@ -111,7 +111,6 @@
     height 100%
     z-index -1
     filter blur(10px)
-
   .detail
     position fixed
     z-index 100
@@ -120,18 +119,101 @@
     width 100%
     height 100%
     overflow auto
-    background rgba(7,17,27,0.8)
-    .detail-wrapper
+    background rgba(7, 17, 27, 0.8)
+    -webkit-backdrop-filter blur(10px)
+    &.fade-enter-active
+          animation: bounce-in .5s;
+    &.fade-leave-active
+      animation: bounce-out .5s;
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    @keyframes bounce-out {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(0);
+      }
+    }
+.detail-wrapper
       width 100%
       min-height 100%
       .detail-main
         margin-top 64px
         padding-bottom 64px
         .name
-          line-height  16px
+          line-height 16px
           text-align center
           font-size 16px
           font-weight 700px
+        .star-wrapper
+          margin-top 18px
+          padding 2px 0
+          text-align center
+        .title
+          width 80%
+          display flex
+          margin 28px auto 0 auto
+          .line
+            flex: 1
+            position relative
+            top -6px
+            border-bottom 1px solid rgba(255, 255, 255, 0.2)
+          .text
+            padding 0px 12px
+            font-size 16px
+            font-weight 700px
+        .supports
+          width 80%
+          margin 22px auto
+          .support-item
+            padding 0 12px
+            font-size 0px
+            margin-bottom 12px
+            &:last-child
+              margin-bottom 0px
+            .icon
+              display inline-block
+              width 16px
+              height 16px
+              vertical-align top
+              margin-right 6px
+              background-size 16px 16px
+              background-repeat no-repeat
+              &.decrease
+               bg-image('decrease_2')
+              &.discount
+                bg-image('discount_2')
+              &.guarantee
+                bg-image('guarantee_2')
+              &.invoice
+                bg-image('invoice_2')
+              &.special
+                bg-image('special_2')
+            .text
+              line-height 12px
+              font-size 12px
+              color #ffffff
+        .bulletin
+          width 80%
+          height 200px
+          margin 22px auto
+          .content
+           padding 0 12px
+           line-height 24px
+           font-size 12px
     .detail-close
       position relative
       width 32px
