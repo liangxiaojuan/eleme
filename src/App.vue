@@ -23,7 +23,7 @@
       </div>
     </div>
     <!-- 头部 -->
-    <router-view></router-view>
+    <router-view :seller="seller"></router-view>
 
   </div>
 </template>

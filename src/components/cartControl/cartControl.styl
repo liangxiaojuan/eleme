@@ -1,0 +1,48 @@
+.cartControl
+  font-size 0
+  .cart-decrease, .cart-add
+    display inline-block
+    padding 6px
+    line-height 24px
+    font-size 24px
+    vertical-align top
+    color rgb(0, 160, 220, 0.2)
+  .cart-count
+    display inline-block
+    font-size 10px
+    line-height 24px
+    width 12px
+    vertical-align top
+    padding-top 6px
+    text-align center
+    color rgb(147, 153, 159)
+  .cart-decrease
+    padding 4px 6px 6px 6px
+    &.fade-enter-active
+      animation: bounce-in .5s;
+    &.fade-leave-active
+      animation: bounce-out .5s;
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+      }
+        transform  transition3D(0,0,0)
+    }
+    @keyframes bounce-out {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(0);
+      }
+    }
+
