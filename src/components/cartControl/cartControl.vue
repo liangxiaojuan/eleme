@@ -1,9 +1,13 @@
 <template>
   <div class="cartControl">
     <transition name="fade">
-      <span class="iconfont icon-jian cart-decrease" v-show="food.count>0" @click="decreaseCart($event)"></span>
+        <div class="cart-decrease" v-show="food.count>0" @click="decreaseCart($event)">
+          <transition name="inner">
+          <span class="inner iconfont icon-jian"></span>
+          </transition>
+        </div>
     </transition>
-      <span class="cart-count" v-show="food.count > 0 ">
+     <span class="cart-count" v-show="food.count > 0 ">
       {{food.count}}
     </span>
     <span class="iconfont icon-jia cart-add" @click="addCart($event)"></span>
@@ -35,7 +39,7 @@
           // 去掉自带click事件的点击
           return;
         }
-          this.food.count--;
+        this.food.count--;
       }
     }
   };

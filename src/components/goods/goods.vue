@@ -86,7 +86,17 @@
             return i;
           }
         }
+        return 0;
+      },
+      selectFoods() {
+        let foods = [];
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+
+          })
+        })
       }
+
     },
     methods: {
       _initScroll() {
