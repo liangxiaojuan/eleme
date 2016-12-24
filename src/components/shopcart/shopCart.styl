@@ -87,3 +87,25 @@
         &.enough
           background #00b43c
           color #ffffff
+  .ball-container
+    .ball
+      position fixed
+      left 32px
+      bottom 22px
+      z-index 200
+      &.fade-enter-active, &.fade-leave-active {
+        transition: all 0.4s linear
+      }
+      &.fade-enter, &.fade-leave-active {
+        opacity: 0
+        transform translate3d(24px, 0, 0)
+      }
+      .inner
+        width 16px
+        height 16px
+        border-radius 50%
+        background rgb(0,160,220)
+        transition: all 0.4s
+
+
+

@@ -13,11 +13,21 @@
       </div>
       <div class="content-right ">
         <div class="pay" :class="payClass">
-         {{payDesc}}
+          {{payDesc}}
         </div>
       </div>
     </div>
+    <div class="ball-container">
+      <trabsition name="fade">
+        <div v-for="ball in balls" v-show="ball.show">
+          <trabsition>
+            <div class="inner">
 
+            </div>
+          </trabsition>
+        </div>
+      </trabsition>
+    </div>
   </div>
 </template>
 
@@ -38,6 +48,11 @@
         type: Number,
         default: 0
       }
+    },
+    data () {
+      return {
+        balls: [{show: false}, {show: false}, {show: false}, {show: false}, {show: false}]
+      };
     },
     computed: {
       totalPrice() {

@@ -37,14 +37,13 @@
         </li>
       </ul>
     </div>
-    <shopCart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopCart>
+    <shopCart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopCart>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
   import shopCart from '../shopcart/shopCart.vue';
   import cartControl from '../cartControl/cartControl.vue';
-
   const ERR_OK = 0;
   export default {
     props: {
@@ -92,16 +91,16 @@
         let foods = [];
         this.goods.forEach((good) => {
           good.foods.forEach((food) => {
-
-          })
-        })
+            if (food.count) {
+              foods.push(food);
+            }
+          });
+        });
+        return foods;
       }
-
     },
     methods: {
       _initScroll() {
-//        console.log(this.$refs);
-//        console.log((this.$refs.menuWrapper));
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {
           click: true
         });
@@ -129,6 +128,9 @@
         let foodList = this.$refs.foodWrapper.getElementsByClassName('food-list-hook');
         let el = foodList[index];
         this.foodScroll.scrollToElement(el, 300);
+      },
+      cartAdd: function (target) {
+        console.log(target);
       }
     },
     components: {
