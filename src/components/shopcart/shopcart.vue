@@ -18,15 +18,10 @@
       </div>
     </div>
     <div class="ball-container">
-      <trabsition name="fade">
         <div v-for="ball in balls" v-show="ball.show">
-          <trabsition>
-            <div class="inner">
-
-            </div>
-          </trabsition>
+          <div class="inner">
+          </div>
         </div>
-      </trabsition>
     </div>
   </div>
 </template>

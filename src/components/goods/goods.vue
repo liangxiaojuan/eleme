@@ -15,7 +15,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="food in item.foods" class="food-item">
+            <li  v-for="food in item.foods" class="food-item" @click="selectFood(food, $event)">
               <div class="icon">
                 <img :src="food.icon" alt="" width="57">
               </div>
@@ -37,13 +37,17 @@
         </li>
       </ul>
     </div>
-    <shopCart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopCart>
+    <div>
+      <shopCart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopCart>
+      <food :food="selectedFood" ref="food"></food>
+    </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
   import shopCart from '../shopcart/shopCart.vue';
   import cartControl from '../cartControl/cartControl.vue';
+  import food from '../food/food.vue';
   const ERR_OK = 0;
   export default {
     props: {
@@ -55,7 +59,8 @@
       return {
         goods: [],
         listHeight: [],
-        scrolly: 0
+        scrolly: 0,
+        selectedFood: {}
       };
     },
     created() {
@@ -129,13 +134,19 @@
         let el = foodList[index];
         this.foodScroll.scrollToElement(el, 300);
       },
-      cartAdd: function (target) {
-        console.log(target);
+      selectFood(food, event) {
+        if (!event._constructed) {
+          // 去掉自带click事件的点击
+          return;
+        }
+        this.selectedFood = food;
+        this.$refs.food.show();
       }
     },
     components: {
       shopCart,
-      cartControl
+      cartControl,
+      food
     }
   };
 </script>
