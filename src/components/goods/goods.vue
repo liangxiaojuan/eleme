@@ -50,7 +50,8 @@
   import shopCart from '../shopcart/shopCart.vue';
   import cartControl from '../cartControl/cartControl.vue';
   import food from '../food/food.vue';
-  const ERR_OK = 0;
+  import data from 'common/json/data.json';
+  //  const ERR_OK = 0;
   export default {
     props: {
       seller: {
@@ -66,15 +67,20 @@
       };
     },
     created() {
-      this.$http.get('/api/goods').then((response) => {
-        response = response.body;
-        if (response.errno === ERR_OK) {
-          this.goods = response.data;
-          this.$nextTick(() => {
-            this._initScroll();
-            this._calculateHeight();
-          });
-        }
+//      this.$http.get('/api/goods').then((response) => {
+//        response = response.body;
+//        if (response.errno === ERR_OK) {
+//         this.goods = response.data;
+//       this.$nextTick(() => {
+//        this._initScroll();
+//        this._calculateHeight();
+//       });
+//        }
+//      });
+      this.goods = data.goods;
+      this.$nextTick(() => {
+        this._initScroll();
+        this._calculateHeight();
       });
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
     },
