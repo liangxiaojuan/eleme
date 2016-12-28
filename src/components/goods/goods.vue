@@ -15,7 +15,7 @@
         <li v-for="item in goods" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li  v-for="food in item.foods" class="food-item" @click="selectFood(food, $event)">
+            <li v-for="food in item.foods" class="food-item" @click="selectFood(food, $event)">
               <div class="icon">
                 <img :src="food.icon" alt="" width="57">
               </div>
@@ -26,10 +26,11 @@
                   <span class="count">月售{{food.sellCount}}</span><span class="count">好评{{food.rating}}</span>
                 </div>
                 <div class="price">
-                  <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                  <span class="now">￥{{food.price}}</span><span class="old"
+                                                                v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartControl-wrapper">
-                  <cartControl :food="food"></cartControl>
+                  <cartControl :food="food" @increment="incrementTotal"></cartControl>
                 </div>
               </div>
             </li>
@@ -38,7 +39,8 @@
       </ul>
     </div>
     <div>
-      <shopCart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopCart>
+      <shopCart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
+                :min-price="seller.minPrice" ref="shopCart"></shopCart>
       <food :food="selectedFood" ref="food"></food>
     </div>
   </div>
@@ -109,8 +111,10 @@
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {
           click: true
         });
-        this.foodScroll = new BScroll(this.$refs.foodWrapper, {probeType: 3,
-          click: true});
+        this.foodScroll = new BScroll(this.$refs.foodWrapper, {
+          probeType: 3,
+          click: true
+        });
         this.foodScroll.on('scroll', (pos) => {
           this.scrolly = Math.abs(Math.round(pos.y));
         });
@@ -141,6 +145,9 @@
         }
         this.selectedFood = food;
         this.$refs.food.show();
+      },
+      incrementTotal(target) {
+        this.$refs.shopCart.drop(target);
       }
     },
     components: {
