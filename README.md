@@ -1,18 +1,25 @@
-# eleme
+#高仿饿了么app商家详情 （vue2 +vue-router2 + es6 +webpack ）
 
-> A Vue.js project
 
-## Build Setup
+##demo
+ [demo 地址](http://liangxiaojuan.github.io/elem/index#/goods)
 
-``` bash
-# install dependencies
-npm install
+##项目下载,运行，打包
+git clone https://github.com/liangxiaojuan/eleme.git   (下载)
+cnpm install --save (淘宝镜像源)
+ npm run dev (运行)
+  npm run build (打包编译)
 
-# serve with hot reload at localhost:8080
-npm run dev
+##项目总结
+1.使用[vue-cli](https://github.com/vuejs/vue-cli)构建项目，可以快速起手进入代码编写
+2.使用[eslint](https://github.com/eslint/eslint) 规范项目格式，保持风格统一
+3.使用 better-scroll 来进行滑动的支持
+4.尽量使用组件化，模块化的思想，即什么都能成为组件
+5.本项目在安卓4.2以下的动画效果不是很理想，滑动也不流畅。这一点正在改进。
+6.不利用vuex，进行父子间的通信。
+7.有什么意见建议请联系我
+##最后
 
-# build for production with minification
-npm run build
-```
+最后附上github地址[https://github.com/liangxiaojuan/eleme](https://github.com/liangxiaojuan/eleme)，喜欢的麻烦帮我点个star,我会分享更多干货。
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
