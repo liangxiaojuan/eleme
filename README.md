@@ -3,12 +3,13 @@
 ![QQ截图20170104094615.png](http://upload-images.jianshu.io/upload_images/4249223-b3892be740f34fc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ##demo
  [demo 地址](http://liangxiaojuan.github.io/elem/index#/goods)
-##项目依赖
+## 项目依赖
 * 本项目依赖 eslint全局环境，没有请下载
 * cnpm install -g eslint
 * 这个脚手架最好也下了
 * cnpm install -g vue-cli
-##项目下载,运行，打包
+
+## 项目下载,运行，打包
 * git clone https://github.com/liangxiaojuan/eleme.git   (下载)
 * cnpm install --save (淘宝镜像源)
 * npm run dev (运行)
