@@ -30,16 +30,13 @@
 
 ![11.gif](http://upload-images.jianshu.io/upload_images/4249223-8d462b93150db24e.gif?imageMogr2/auto-orient/strip)
 
-
 * 弹出购物车 商品详情页
 
 ![2222.gif](http://upload-images.jianshu.io/upload_images/4249223-71b66b4249d868bd.gif?imageMogr2/auto-orient/strip)
 
 * 分类切换 图片左右滑动
 
-
 ![3333.gif](http://upload-images.jianshu.io/upload_images/4249223-f0921b44740f6d4f.gif?imageMogr2/auto-orient/strip)
-
 
 ###安装
 ***
