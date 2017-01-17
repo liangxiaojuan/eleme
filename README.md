@@ -110,3 +110,4 @@ npm install friendly-errors-webpack-plugin --save-dev
 * 我的另外一个vue开源项目 [Meizi](https://github.com/liangxiaojuan/vue-Meizi) 用了vuex，和其他比较火的包，才刚刚上传，代码更加简单，设计更加简洁，注释更加多！喜欢vue的朋友赶紧去看看。
 * 如果喜欢一定要 star哈!!!（谢谢!!）
 * 如果有意见和问题 请在 lssues提出，我会在线解答。
+* 我年后要离职了 对我感兴趣的可以联系我 [简历](https://github.com/liangxiaojuan/resume)
