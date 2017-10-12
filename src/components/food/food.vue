@@ -144,6 +144,6 @@
     }
   };
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
-  @import "food.styl";
+<style lang="less" rel="stylesheet/less">
+
 </style>
