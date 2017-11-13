@@ -134,6 +134,6 @@
     }
   };
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" scoped>
   @import "seller.styl";
 </style>

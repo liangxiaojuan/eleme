@@ -82,10 +82,14 @@ li {
 
 html, body {
   width: 100%;
+  font-family: 'Helvetica Neue',Tahoma,Arial,PingFangSC-Regular,'Hiragino Sans GB','Microsoft Yahei',sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
 }
 
 body {
   -webkit-text-size-adjust: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #ffffff;
+
 }

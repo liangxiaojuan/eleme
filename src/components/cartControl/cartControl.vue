@@ -46,7 +46,7 @@ export default {
   }
 };
 </script>
-<style lang="less" rel="stylesheet/less">
+<style lang="stylus" scoped>
 .cartControl
   font-size 0
   .cart-decrease, .cart-add

@@ -1,0 +1,170 @@
+{
+  "activities": [{
+    "attribute": "17.0",
+    "description": "新用户下单立减17元(不与其它活动同享)",
+    "icon_color": "70bc46",
+    "icon_name": "首",
+    "id": 123804698,
+    "is_exclusive_with_food_activity": true,
+    "name": "新用户立减17",
+    "tips": "新用户下单立减17元(不与其它活动同享)",
+    "type": 103
+  }, {
+    "attribute": "{\"30\": {\"1\": 5.0, \"0\": 0}, \"55\": {\"1\": 20.0, \"0\": 0}}",
+    "description": "满30减5，满55减20",
+    "icon_color": "f07373",
+    "icon_name": "减",
+    "id": 138082490,
+    "is_exclusive_with_food_activity": true,
+    "name": "成都",
+    "tips": "满30减5，满55减20",
+    "type": 102
+  }, {
+    "description": "为中国队喝彩，RNG加油！",
+    "icon_color": "f07373",
+    "icon_name": "国",
+    "id": 137414618,
+    "name": "为中国队喝彩，RNG加油！",
+    "tips": "为中国队喝彩，RNG加油！"
+  }, {
+    "description": "饿了么独享双人双拼",
+    "icon_color": "f1884f",
+    "icon_name": "特",
+    "id": 129716186,
+    "name": "饿了么独享双人双拼",
+    "tips": "饿了么独享双人双拼"
+  }, {
+    "description": "畅享牛肉套餐",
+    "icon_color": "f1884f",
+    "icon_name": "牛",
+    "id": 129519634,
+    "name": "畅享牛肉套餐",
+    "tips": "畅享牛肉套餐"
+  }, {
+    "description": "大吉大利，带我吃鸡",
+    "icon_color": "f1884f",
+    "icon_name": "鸡",
+    "id": 129429874,
+    "name": "大吉大利，带我吃鸡",
+    "tips": "大吉大利，带我吃鸡"
+  }, {
+    "description": "万里挑一，只为真材实廖",
+    "icon_color": "f1884f",
+    "icon_name": "特",
+    "id": 129388346,
+    "name": "万里挑一，只为真材实廖",
+    "tips": "万里挑一，只为真材实廖"
+  }],
+  "address": "成都高新区天府大道北段1700号新世纪环球购物中心B1C13号",
+  "albums": [{
+    "count": 1,
+    "cover_image_hash": "84365ada20d7623eaeaf5e9bdd52d0f2jpeg",
+    "name": "门面",
+    "photos": [{
+      "description": "环球中心店",
+      "id": 5388492,
+      "image_hash": "84365ada20d7623eaeaf5e9bdd52d0f2jpeg",
+      "type": "FRONT"
+    }]
+  }, {
+    "count": 1,
+    "cover_image_hash": "095e6fb9979b9010d6a1633efa4c0dbcjpeg",
+    "name": "其他",
+    "photos": [{
+      "description": "我们还有廖记美味串哦，欢迎到店选购～",
+      "id": 5388584,
+      "image_hash": "095e6fb9979b9010d6a1633efa4c0dbcjpeg",
+      "type": "OTHER"
+    }]
+  }, {
+    "count": 1,
+    "cover_image_hash": "eea194497b06844e9f10d96ee827b8cajpeg",
+    "name": "大堂",
+    "photos": [{
+      "description": "这是我们的美食",
+      "id": 5388516,
+      "image_hash": "eea194497b06844e9f10d96ee827b8cajpeg",
+      "type": "HALL"
+    }]
+  }, {
+    "count": 1,
+    "cover_image_hash": "16fae84de9816355d01250767b8fa384jpeg",
+    "name": "后厨",
+    "photos": [{
+      "description": "美食加工区",
+      "id": 5388549,
+      "image_hash": "16fae84de9816355d01250767b8fa384jpeg",
+      "type": "KITCHEN"
+    }]
+  }],
+  "authentic_id": 2321773678749597,
+  "delivery_mode": {
+    "border": "",
+    "color": "2395FF",
+    "gradient": {
+      "rgb_from": "00AAFF",
+      "rgb_to": "0085FF"
+    },
+    "id": 1,
+    "is_solid": true,
+    "text": "蜂鸟专送",
+    "text_color": "FFFFFF"
+  },
+  "description": "叫外卖 上饿了么",
+  "distance": 0,
+  "favored": false,
+  "float_delivery_fee": 3,
+  "float_minimum_order_amount": 20,
+  "id": 669397,
+  "image_path": "2a4fd07830d7ff7b241cab959998eb4apng",
+  "is_new": false,
+  "is_premium": true,
+  "is_stock_empty": 0,
+  "is_valid": 1,
+  "latitude": 30.57071271,
+  "longitude": 104.064563,
+  "max_applied_quantity_per_order": 4,
+  "name": "廖记棒棒鸡（环球中心店）",
+  "next_business_time": "",
+  "only_use_poi": false,
+  "opening_hours": ["09:50/20:40"],
+  "order_lead_time": 34,
+  "phone": "17780575003",
+  "piecewise_agent_fee": {
+    "description": "配送费¥3",
+    "extra_fee": 0,
+    "is_extra": false,
+    "rules": [{
+      "fee": 3,
+      "price": 20
+    }],
+    "tips": "配送费¥3"
+  },
+  "promotion_info": "饿了么配送承诺，您的餐品70分钟内送达。如送餐时间超过70分钟,此单赠送一个10元红包、超过90分钟,此单赠送两个10元红包！订餐须知—1:请确保您的电话畅通，以便送餐员能及时联系上您。2:美食烹饪+餐品配送需要一定的时间，为了确保您能及时用餐，希望您提前30分钟以上时间预定下单，避开高峰时期。",
+  "qualification": {
+    "link": "https://h5.ele.me/shop/certification/#/?restaurant_id=2321773678749597\u0026realId=669397"
+  },
+  "rating": 4.6,
+  "rating_count": 563,
+  "recent_order_num": 1068,
+  "recommend": {
+    "is_ad": false,
+    "reason": ""
+  },
+  "regular_customer_count": 0,
+  "status": 1,
+  "supports": [{
+    "description": "已加入“外卖保”计划，食品安全有保障",
+    "icon_color": "999999",
+    "icon_name": "保",
+    "id": 7,
+    "name": "外卖保"
+  }],
+  "type": 0,
+  "weight": {
+    "basic": 20000,
+    "maximum": 20000,
+    "unit": 20000,
+    "unit_fee": 20000
+  }
+}

@@ -205,6 +205,6 @@
     }
   };
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" scoped>
   @import "shopCart.styl";
 </style>

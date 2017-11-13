@@ -30,7 +30,8 @@
 <script type="text/ecmascript-6">
 import header from './components/header/header.vue';
 import { urlParse } from 'common/js/util';
-import data from 'common/json/data.json';
+// import data from 'common/json/data.json';
+import seller from 'common/json/seller.json';
 //  const ERR_OK = 0;
 export default {
   data() {
@@ -44,30 +45,30 @@ export default {
     };
   },
   created() {
-    //      this.$http.get('/api/seller?id=' + this.seller.id).then((response) => {
-    //        response = response.body;
-    //        if (response.errno === ERR_OK) {
-    //          this.seller = response.data;
-    //          this.seller = Object.assign({}, this.seller, response.data);
-    //        }
-    //      });
+        //  this.$http.get('/api/seller?id=' + this.seller.id).then((response) => {
+        //    response = response.body;
+        //    if (response.errno === ERR_OK) {
+        //      this.seller = response.data;
+        //      this.seller = Object.assign({}, this.seller, response.data);
+        //    }
+        //  });
 
-    this.seller = data.seller;
+    this.seller = seller;
   },
   components: {
     'v-header': header
   }
 };
 </script>
-<style lang="less" rel="stylesheet/less">
-@import "common/less/mixin.less";
+<style lang="stylus" scoped>
+@import "common/stylus/mixin.styl";
 .tab {
   display: flex;
   width: 100%;
   height: 40px;
   line-height: 40px;
   /*border: 1px solid rgba(7,17,27,0.1);*/
-  .border-1px(rgba(7, 17, 27, 0.1));
+  border-1px(rgba(7, 17, 27, 0.1));
 }
 .tab .tab-item {
   flex: 1;

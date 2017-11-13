@@ -163,6 +163,6 @@
     }
   };
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" scoped>
   @import "goods.styl";
 </style>
