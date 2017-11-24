@@ -18,5 +18,22 @@ export function urlParse() {
       obj[key] = val;
     });
   }
-  return {id: 123123};
+  return {
+    id: 123123
+  };
+};
+
+/**
+ * 解析拼接img地址
+ * @return String
+ */
+
+export function recombineImg(string, format = 140) {
+  if (!string || typeof string == 'string') {
+    return string;
+  }
+  let baseUrl = 'https://fuss10.elemecdn.com/';
+  let suffix = `?imageMogr/format/webp/thumbnail/!${format}x${format}r/gravity/Center/crop/${format}x${format}/`;
+  let url = `${baseUrl}${string.substring(0, 1)}/${string.substring(1, 3)}/${string.substring(3)}.jpeg${suffix}`;
+  return url;
 };

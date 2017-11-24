@@ -64,7 +64,7 @@
   import split from '../split/split.vue';
   import ratingselect from '../ratingselect/ratingselect.vue';
   import {formatDate} from '../../common/js/date';
-  import data from 'common/json/data.json';
+  import data from 'common/json/ratings.json';
   //  const POSITIVE = 0;
   //  const NEGATIVE = 1;
   const ALL = 2;
