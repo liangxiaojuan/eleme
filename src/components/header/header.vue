@@ -41,7 +41,7 @@
               <div class="line"></div>
             </div>
             <ul v-if="seller.supports" class="supports">
-              <li class="support-item" v-for="(item, index) in seller.activities">
+              <li class="support-item" v-for="(item, index) in seller.activities" :key="index">
                 <!-- <span class="icon" :class="classMap[seller.supports[index].type]"></span> -->
                     <ico :name="item['icon_name']" :color="item['icon_color']"></ico>
                 <span class="text">{{item.description}}</span>
@@ -188,7 +188,7 @@ export default {
 
   .bulletin-wrapper {
     position: relative;
-    background-color: rgba(7, 17, 27, 0.2);
+    // background-color: rgba(7, 17, 27, 0.2);
     height: 0.28rem;
     line-height: 0.28rem;
     padding: 0 0.22rem 0 0.12rem;

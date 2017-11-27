@@ -61,7 +61,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import 'common/stylus/mixin.less';
+@import "common/stylus/mixin.less";
 
 .tab {
   display: flex;
@@ -84,6 +84,19 @@ export default {
 }
 
 .tab .tab-item .active {
-  color: rgb(240, 20, 20);
+  color: #3190e8;
+  font-weight: 700;
+  a {
+    :after {
+      content: "";
+      position: absolute;
+      bottom: -0.266667rem;
+      left: 0;
+      right: 0;
+      height: 0.08rem;
+      height: 0.8vw;
+      background-color: #2395ff;
+    }
+  }
 }
 </style>
