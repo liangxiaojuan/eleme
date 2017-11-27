@@ -2,7 +2,7 @@
   <div class="header">
     <div class="content-wrapper">
       <div class="avatar">
-        <img width="64" height="64" src="seller.promotion_info">
+        <img width="64" height="64" :src="recombineImg(seller.image_path)">
       </div>
       <div class="content">
         <div class="title">
@@ -22,6 +22,7 @@
       <ico :name="seller.activities[0]['icon_name']" :color="seller.activities[0]['icon_color']"></ico>
       <span class="bulletin-text">{{seller.activities[0]['description']}}</span>
       <i class="icon iconfont icon-zuoyoujiantou"></i>
+      <span class="bulletin-text bulletin-number">共{{seller.activities.length}}个活动</span>
     </div>
     <div class="background">
       <img :src="seller.promotion_info" alt="" class="" width="100%" height="100%">
@@ -32,7 +33,7 @@
           <div class="detail-main">
             <h1 class="name">{{seller.name}}</h1>
             <div class="star-wrapper">
-              <star :size="48" :score="seller.score"></star>
+              <star :size="48" :score="seller.rating"></star>
             </div>
             <div class="title">
               <div class="line"></div>
@@ -40,10 +41,11 @@
               <div class="line"></div>
             </div>
             <ul v-if="seller.supports" class="supports">
-              <!-- <li class="support-item" v-for="(item, index) in seller.supports">
-                <span class="icon" :class="classMap[seller.supports[index].type]"></span>
-                <span class="text">{{seller.supports[index].description}}</span>
-              </li> -->
+              <li class="support-item" v-for="(item, index) in seller.activities">
+                <!-- <span class="icon" :class="classMap[seller.supports[index].type]"></span> -->
+                    <ico :name="item['icon_name']" :color="item['icon_color']"></ico>
+                <span class="text">{{item.description}}</span>
+              </li>
             </ul>
             <div class="title">
               <div class="line"></div>
@@ -51,7 +53,7 @@
               <div class="line"></div>
             </div>
             <div class="bulletin">
-              <p class="content">{{seller.bulletin}}</p>
+              <p class="content">{{seller.promotion_info}}</p>
             </div>
           </div>
         </div>
@@ -63,307 +65,324 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  export default {
-    props: {
-      seller: {
-        type: Object
-      }
-    },
-    data() {
-      return {
-        detailShow: false
-      };
-    },
-    methods: {
-      showDetail() {
-        this.detailShow = true;
-      },
-      hideDetail() {
-        this.detailShow = false;
-      }
-    },
-    created() {
-      this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
-    },
-    components: {
-      star: require("../star/star.vue"),
-      ico: require("../ico")
+import { recombineImg } from "common/js/util";
+export default {
+  props: {
+    seller: {
+      type: Object
     }
-  };
-
+  },
+  data() {
+    return {
+      detailShow: false
+    };
+  },
+  methods: {
+    showDetail() {
+      this.detailShow = true;
+    },
+    hideDetail() {
+      this.detailShow = false;
+    },
+    recombineImg(str) {
+      return recombineImg(str, 130);
+    }
+  },
+  created() {
+    this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
+  },
+  components: {
+    star: require("../star/star.vue"),
+    ico: require("../ico")
+  }
+};
 </script>
-<style lang="stylus" scoped>
-  @import '../../common/stylus/mixin.styl';
+<style lang="less" scoped>
+// @import '../../common/stylus/mixin.less';
 
-  .header {
+.header {
+  position: relative;
+  color: #fff;
+  overflow: hidden;
+  background: rgba(7, 17, 27, 0.5);
+  background-image: url("https://fuss10.elemecdn.com/2/a4/fd07830d7ff7b241cab959998eb4apng.png?imageMogr/format/webp/thumbnail/!40p/blur/50x40/");
+  .content-wrapper {
     position: relative;
-    color: #fff;
-    overflow: hidden;
-    background: rgba(7, 17, 27, 0.5);
+    padding: 0.24rem 0.12rem 0.18rem 0.24rem;
+    font-size: 0;
 
-    .content-wrapper {
-      position: relative;
-      padding: 24px 12px 18px 24px;
-      font-size: 0;
+    .avatar {
+      display: inline-block;
+      vertical-align: top;
 
-      .avatar {
-        display: inline-block;
-        vertical-align: top;
-
-        img {
-          border-radius: 2px;
-        }
-      }
-
-      .content {
-        display: inline-block;
-        font-size: 14px;
-        margin-left: 16px;
-
-        .title {
-          margin: 2px 0 8px 0;
-
-          .brand {
-            display: inline-block;
-            vertical-align: top;
-            width: 30px;
-            height: 18px; // bg-image('brand');
-            background-size: 30px 18px;
-            background-repeat: no-repeat;
-          }
-
-          .name {
-            font-size: 16px;
-            line-height: 18px;
-            font-weight: bold;
-          }
-        }
-
-        .description {
-          margin-bottom: 10px;
-          line-height: 12px;
-          font-size: 12px;
-        }
-
-        .support {
-          // width : 10%;
-          // display inline-block
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          line-height: 12px;
-          font-size: 12px;
-          width: 240px;
-        }
-      }
-
-      .supports-count {
-        position: absolute;
-        right: 12px;
-        bottom: 14px;
-        padding: 0 8px;
-        height: 24px;
-        line-height: 24px;
-        border-radius: 12px;
-        background: rgba(0, 0, 0, 0.2);
-        text-align: content;
-
-        .count {
-          font-size: 10px;
-          vertical-align: top;
-        }
-
-        .icon {
-          margin-left: 2px;
-          line-height: 24px;
-          font-size: 10px;
-        }
+      img {
+        border-radius: 0.02rem;
       }
     }
 
-    .bulletin-wrapper {
-      position: relative;
-      background-color: rgba(7, 17, 27, 0.2);
-      height: 28px;
-      line-height: 28px;
-      padding: 0 22px 0 12px;
-      white-space: normal; // overflow: hidden;
-      // text-overflow: ellipsis;
-      .bulletin-title {
-        display: inline-block;
-        vertical-align: top;
-        margin-top: 8px;
-        width: 22px;
-        height: 12px; // bg-image('bulletin');
-        background-size: 22px 12px;
-        background-repeat: no-repeat;
+    .content {
+      display: inline-block;
+      font-size: 0.12rem;
+      margin-left: 0.16rem;
+
+      .title {
+        margin: 0.02rem 0 0.08rem 0;
+
+        .brand {
+          display: inline-block;
+          vertical-align: top;
+          width: 0.3rem;
+          height: 0.18rem; // bg-image('brand');
+          background-size: 0.3rem 0.18rem;
+          background-repeat: no-repeat;
+        }
+
+        .name {
+          font-size: 0.16rem;
+          line-height: 0.18rem;
+          font-weight: bold;
+        }
       }
 
-      .bulletin-text {
+      .description {
+        margin-bottom: 0.1rem;
+        line-height: 0.12rem;
+        font-size: 0.12rem;
+      }
+
+      .support {
+        // width : 10%;
+        // display inline-block
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 0.12rem;
+        font-size: 0.12rem;
+        width: 2.4rem;
+      }
+    }
+
+    .supports-count {
+      position: absolute;
+      right: 0.12rem;
+      bottom: 0.14rem;
+      padding: 0 0.08rem;
+      height: 0.24rem;
+      line-height: 0.24rem;
+      border-radius: 0.12rem;
+      background: rgba(0, 0, 0, 0.2);
+      text-align: content;
+
+      .count {
+        font-size: 0.1rem;
         vertical-align: top;
-        margin: 0 4px;
-        font-size: 10px;
       }
 
       .icon {
-        position: absolute;
-        font-size: 20px;
-        right: 12px;
-        top: 0px;
-      }
-    }
-
-    .background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      filter: blur(10px);
-    }
-
-    .detail {
-      position: fixed;
-      z-index: 100;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background: rgba(7, 17, 27, 0.8);
-      -webkit-backdrop-filter: blur(10px);
-
-      &.fade-enter-active {
-        animation: bounce-in 0.5s;
-      }
-
-      &.fade-leave-active {
-        animation: bounce-out 0.5s;
-      }
-
-      @keyframes bounce-in {
-        0% {
-          transform: scale(0);
-        }
-
-        50% {
-          transform: scale(1.5);
-        }
-
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      @keyframes bounce-out {
-        0% {
-          transform: scale(1);
-        }
-
-        50% {
-          transform: scale(1.5);
-        }
-
-        100% {
-          transform: scale(0);
-        }
+        margin-left: 0.02rem;
+        line-height: 0.24rem;
+        font-size: 0.1rem;
       }
     }
   }
 
-  .detail-wrapper {
+  .bulletin-wrapper {
+    position: relative;
+    background-color: rgba(7, 17, 27, 0.2);
+    height: 0.28rem;
+    line-height: 0.28rem;
+    padding: 0 0.22rem 0 0.12rem;
+    white-space: normal; // overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    // width: 100%;
+    // text-overflow: ellipsis;
+    .bulletin-title {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 0.08rem;
+      width: 0.22rem;
+      height: 0.12rem; // bg-image('bulletin');
+      background-size: 0.22rem 0.12rem;
+      background-repeat: no-repeat;
+    }
+
+    .bulletin-text {
+      vertical-align: top;
+      margin: 0 0.04rem;
+      font-size: 0.12rem;
+      color: #ffffff;
+      &.bulletin-number {
+        position: absolute;
+        // font-size: 0.2rem;
+        right: 0.1rem;
+        top: 0rem;
+      }
+    }
+
+    .icon {
+      position: absolute;
+      font-size: 0.16rem;
+      right: 0rem;
+      top: -0.01rem;
+    }
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    min-height: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(0.1rem);
+  }
 
-    .detail-main {
-      margin-top: 64px;
-      padding-bottom: 64px;
+  .detail {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(7, 17, 27, 0.9);
+    -webkit-backdrop-filter: blur(10rem);
 
-      .name {
-        line-height: 16px;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 700px;
+    &.fade-enter-active {
+      animation: bounce-in 0.5s;
+    }
+
+    &.fade-leave-active {
+      animation: bounce-out 0.5s;
+    }
+
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
       }
 
-      .star-wrapper {
-        margin-top: 18px;
-        padding: 2px 0;
-        text-align: center;
+      50% {
+        transform: scale(1.5);
       }
 
-      .title {
-        width: 80%;
-        display: flex;
-        margin: 28px auto 0 auto;
+      100% {
+        transform: scale(1);
+      }
+    }
 
-        .line {
-          flex: 1;
-          position: relative;
-          top: -6px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    @keyframes bounce-out {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.5);
+      }
+
+      100% {
+        transform: scale(0);
+      }
+    }
+  }
+}
+
+.detail-wrapper {
+  width: 100%;
+  min-height: 100%;
+
+  .detail-main {
+    margin-top: 0.32rem;
+    padding-bottom: 0.32rem;
+
+    .name {
+      line-height: 0.16rem;
+      text-align: center;
+      font-size: 0.16rem;
+      font-weight: 7rem;
+    }
+
+    .star-wrapper {
+      margin-top: 0.18rem;
+      padding: 0.02rem 0;
+      text-align: center;
+    }
+
+    .title {
+      width: 90%;
+      display: flex;
+      margin: 0.28rem auto 0 auto;
+
+      .line {
+        flex: 1;
+        position: relative;
+        top: -0.1rem;
+        border-bottom: 0.01rem solid rgba(255, 255, 255, 0.2);
+      }
+
+      .text {
+        padding: 0.05rem 0.08rem;
+        font-size: 0.12rem;
+        font-weight: 7rem;
+        border-radius: 0.05rem;
+        border: 1px solid #555;
+        background-color: #262626;
+      }
+    }
+
+    .supports {
+      width: 90%;
+      margin: 0.22rem auto;
+
+      .support-item {
+        padding: 0 0.12rem;
+        font-size: 0rem;
+        margin-bottom: 0.12rem;
+
+        &:last-child {
+          margin-bottom: 0rem;
+        }
+
+        .icon {
+          display: inline-block;
+          width: 0.16rem;
+          height: 0.16rem;
+          vertical-align: top;
+          margin-right: 0.06rem;
+          background-size: 0.16rem 0.16rem;
+          background-repeat: no-repeat;
         }
 
         .text {
-          padding: 0px 12px;
-          font-size: 16px;
-          font-weight: 700px;
-        }
-      }
-
-      .supports {
-        width: 80%;
-        margin: 22px auto;
-
-        .support-item {
-          padding: 0 12px;
-          font-size: 0px;
-          margin-bottom: 12px;
-
-          &:last-child {
-            margin-bottom: 0px;
-          }
-
-          .icon {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            vertical-align: top;
-            margin-right: 6px;
-            background-size: 16px 16px;
-            background-repeat: no-repeat;
-          }
-
-          .text {
-            line-height: 12px;
-            font-size: 12px;
-            color: #ffffff;
-          }
-        }
-      }
-
-      .bulletin {
-        width: 80%;
-        height: 200px;
-        margin: 22px auto;
-
-        .content {
-          padding: 0 12px;
-          line-height: 24px;
-          font-size: 12px;
+          margin-left: 0.05rem;
+          line-height: 0.12rem;
+          font-size: 0.12rem;
+          color: #ffffff;
         }
       }
     }
-  }
 
-  .detail-close {
-    position: relative;
-    width: 32px;
-    height: 32px;
-    margin: -64px auto 0 auto;
-    clear: both;
-    font-size: 32px;
-  }
+    .bulletin {
+      width: 90%;
+      height: 2rem;
+      margin: 0.22rem auto;
 
+      .content {
+        padding: 0 0.12rem;
+        line-height: 0.16rem;
+        font-size: 0.12rem;
+      }
+    }
+  }
+}
+
+.detail-close {
+  position: relative;
+  width: 0.32rem;
+  height: 0.32rem;
+  margin: -0.64rem auto 0 auto;
+  clear: both;
+  font-size: 0.32rem;
+}
 </style>

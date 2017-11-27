@@ -15,7 +15,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Vue from 'vue';
+import Vue from "vue";
 export default {
   props: {
     food: {
@@ -29,12 +29,12 @@ export default {
         return;
       }
       if (!this.food.count) {
-        Vue.set(this.food, 'count', 1);
+        Vue.set(this.food, "count", 1);
       } else {
         this.food.count++;
       }
       //        event.srcElement.outerHTML
-      this.$emit('increment', event.target); // 子组件通过 $emit触发父组件的方法 increment   还
+      this.$emit("increment", event.target); // 子组件通过 $emit触发父组件的方法 increment   还
     },
     decreaseCart(event) {
       if (!event._constructed) {
@@ -47,46 +47,59 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-.cartControl
-  font-size 0
-  .cart-decrease, .cart-add
-    display inline-block
-    padding 4px 6px 6px 6px
+.cartControl {
+  font-size: 0;
+
+  .cart-decrease, .cart-add {
+    display: inline-block;
+    padding: 0.04rem 0.06rem 0.06rem 0.06rem;
+
     &.fade-enter-active, &.fade-leave-active {
-      transition: all 0.4s linear
+      transition: all 0.4s linear;
     }
+
     &.fade-enter, &.fade-leave-active {
-      opacity: 0
-      transform translate3d(24px, 0, 0)
+      opacity: 0;
+      transform: translate3d(0.24rem, 0, 0);
     }
-    .inner
-      display inline-block
-      line-height 24px
-      font-size 24px
-      vertical-align top
-      color rgb(0, 160, 220, 0.2)
+
+    .inner {
+      display: inline-block;
+      line-height: 0.24rem;
+      font-size: 0.24rem;
+      vertical-align: top;
+      color: rgb(0, 160, 220, 0.2);
+
       &.inner-enter-active, &.inner-leave-active {
-        transition: all 0.4s linear
-        transform: rotate(0)
+        transition: all 0.4s linear;
+        transform: rotate(0);
       }
+
       &.inner-enter, &.inner-leave-active {
-        opacity: 0
-        transform  rotate(180deg)
+        opacity: 0;
+        transform: rotate(180deg);
       }
-  .cart-count
-    display inline-block
-    font-size 10px
-    line-height 24px
-    width 12px
-    vertical-align top
-    padding-top 6px
-    text-align center
-    color rgb(147, 153, 159)
-  .cart-add
-    display inline-block
-    padding 6px
-    line-height 24px
-    font-size 24px
-    vertical-align top
-    color rgb(0, 160, 220, 0.2)
+    }
+  }
+
+  .cart-count {
+    display: inline-block;
+    font-size: 0.1rem;
+    line-height: 0.24rem;
+    width: 0.12rem;
+    vertical-align: top;
+    padding-top: 0.06rem;
+    text-align: center;
+    color: rgb(147, 153, 159);
+  }
+
+  .cart-add {
+    display: inline-block;
+    padding: 0.06rem;
+    line-height: 0.24rem;
+    font-size: 0.24rem;
+    vertical-align: top;
+    color: rgb(0, 160, 220, 0.2);
+  }
+}
 </style>

@@ -1,0 +1,28 @@
+.border-1px(@color) {
+    position: relative;
+    &:after {
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border-top: 1px solid @color;
+        width: 100%;
+        content: '';
+    }
+}
+
+.border-none() {
+    &:after {
+        display: none;
+    }
+}
+
+.bg-image(@url) {
+    @imgSuffix1: "@2x.png";
+    @imgSuffix2: "@3x.png";
+    @path: '../img/';
+    background-image: url('@{path}@{url}@{imgSuffix1}');
+    @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+        background-image: url('@{path}@{url}@{imgSuffix2}');
+    }
+}

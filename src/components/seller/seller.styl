@@ -1,4 +1,4 @@
-@import "../../common/stylus/mixin.styl"
+@import "../../common/stylus/mixin.less"
 @import "../../common/stylus/base.styl"
 .seller
   position absolute
@@ -17,7 +17,7 @@
     .desc
       padding-bottom 18px
       font-size 0
-      border-1px(rgba(7, 17, 27, 0.1))
+      .border-1px(rgba(7, 17, 27, 0.1))
       .star
         display inline-block
         vertical-align top
@@ -81,14 +81,14 @@
       font-size 14px
     .content-wrapper
       padding 0 12px 16px 1px
-      border-1px(rgba(7, 17, 27, 0.1))
+      .border-1px(rgba(7, 17, 27, 0.1))
       .content
         line-height 24px
         font-size 12px color rgb(240, 20, 20)
     .supports
       .support-item
         padding 16px 12px
-        border-1px(rgba(7, 17, 27, 0.1))
+        .border-1px(rgba(7, 17, 27, 0.1))
         font-size 0
         &:last-child
           border-none()
@@ -141,12 +141,12 @@
     .title
       padding-bottom 12px
       line-height 14px
-      border-1px(rgba(7, 17, 27, 0.1))
+      .border-1px(rgba(7, 17, 27, 0.1))
       font-size 14px
     .info-item
       padding 16px 12px
       line-height 16px
-      border-1px(rgba(7, 17, 27, 0.1))
+      .border-1px(rgba(7, 17, 27, 0.1))
       font-size 12px
       &:last-child
         border-none()

@@ -167,6 +167,153 @@ export default {
   }
 };
 </script>
-<style lang="stylus" scoped>
-@import 'goods.styl';
+<style lang="less">
+// @import '../../common/stylus/mixin.less';
+
+.good {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  top: 1.74rem;
+  bottom: 0.46rem;
+  overflow: hidden;
+
+  .menu-wrapper {
+    flex: 0 0 0.8rem;
+    width: 0.8rem;
+    background: #f3f5f7;
+
+    .menu-item {
+      display: table;
+      width: 0.56rem;
+      height: 0.54rem;
+      line-height: 0.14rem;
+      padding: 0 0.12rem;
+
+      &.current {
+        position: relative;
+        z-index: 10;
+        margin-top: -0.01rem;
+        background: #fff;
+        font-weight: 700;
+
+        .text {
+          // border-none();
+        }
+      }
+
+      .icon {
+        display: inline-block;
+        width: 0.12rem;
+        height: 0.12rem;
+        vertical-align: top;
+        margin-right: 0.04rem;
+        background-size: 0.12rem 0.12rem;
+        background-repeat: no-repeat;
+        // &.decrease
+        // bg-image('decrease_3')
+        // &.discount
+        // bg-image('discount_3')
+        // &.guarantee
+        // bg-image('guarantee_3')
+        // &.invoice
+        // bg-image('invoice_3')
+        // &.special
+        // bg-image('special_3')
+      }
+
+      .text {
+        display: table-cell;
+        width: 56rem;
+        vertical-align: middle;
+        // border-1rem(rgba(7, 17, 27, 0.1));
+        font-size: 0.12rem;
+      }
+    }
+  }
+
+  .foods-wrapper {
+    flex: 1;
+    .food-list {
+      .title {
+        padding-left: 0.14rem;
+        height: 0.26rem;
+        line-height: 0.26rem;
+        border-left: 0.02rem solid #d9dde1;
+        font-size: 0.12rem;
+        color: rgb(147, 153, 159);
+        background: #f3f5f7;
+      }
+
+      .food-item {
+        display: flex;
+        margin: 0.18rem;
+        padding-bottom: 0.18rem;
+        // border-1rem(rgba(7, 17, 27, 0.1));
+
+        &:last-child {
+          // border-none();
+          margin-bottom: 0rem;
+        }
+
+        .icon {
+          flex: 0 0 0.57rem;
+          margin-right: 0.1rem;
+        }
+
+        .content {
+          flex: 1;
+
+          .name {
+            margin: 0.02rem 0 0.08rem 0;
+            font-size: 0.14rem;
+            line-height: 0.14rem;
+            height: 0.14rem;
+            color: rgb(7, 17, 27);
+          }
+
+          .desc, .extra {
+            font-size: 0.1rem;
+            line-height: 0.1rem;
+            color: rgb(147, 153, 159);
+          }
+
+          .desc {
+            margin-bottom: 0.08rem;
+            line-height: 0.12rem;
+          }
+
+          .extra {
+            .count {
+              margin-right: 0.12rem;
+            }
+          }
+
+          .price {
+            font-weight: 7rem;
+            line-height: 0.24rem;
+
+            .now {
+              margin-right: 0.08rem;
+              font-size: 0.14rem;
+              color: rgb(240, 20, 20);
+            }
+
+            .old {
+              font-size: 0.1rem;
+              color: rgb(147, 153, 159);
+              text-decoration: line-through;
+            }
+          }
+
+          .cartControl-wrapper {
+            position: absolute;
+            right: 0;
+            bottom: 0.12rem;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

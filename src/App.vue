@@ -28,10 +28,10 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-import header from './components/header/header.vue';
-import { urlParse } from 'common/js/util';
+import header from "./components/header/header.vue";
+import { urlParse } from "common/js/util";
 // import data from 'common/json/data.json';
-import seller from 'common/json/seller.json';
+import seller from "common/json/seller.json";
 //  const ERR_OK = 0;
 export default {
   data() {
@@ -45,40 +45,44 @@ export default {
     };
   },
   created() {
-        //  this.$http.get('/api/seller?id=' + this.seller.id).then((response) => {
-        //    response = response.body;
-        //    if (response.errno === ERR_OK) {
-        //      this.seller = response.data;
-        //      this.seller = Object.assign({}, this.seller, response.data);
-        //    }
-        //  });
+    //  this.$http.get('/api/seller?id=' + this.seller.id).then((response) => {
+    //    response = response.body;
+    //    if (response.errno === ERR_OK) {
+    //      this.seller = response.data;
+    //      this.seller = Object.assign({}, this.seller, response.data);
+    //    }
+    //  });
 
     this.seller = seller;
   },
   components: {
-    'v-header': header
+    "v-header": header
   }
 };
 </script>
-<style lang="stylus" scoped>
-@import "common/stylus/mixin.styl";
+<style lang="less" scoped>
+@import 'common/stylus/mixin.less';
+
 .tab {
   display: flex;
   width: 100%;
-  height: 40px;
-  line-height: 40px;
-  /*border: 1px solid rgba(7,17,27,0.1);*/
-  border-1px(rgba(7, 17, 27, 0.1));
+  height: 0.4rem;
+  line-height: 0.4rem;
+  /* border: 1px solid rgba(7,17,27,0.1); */
+  .border-1px(rgba(7, 17, 27, 0.1));
 }
+
 .tab .tab-item {
   flex: 1;
   text-align: center;
 }
+
 .tab .tab-item a {
   display: block;
-  font-size: 14px;
+  font-size: 0.14rem;
   color: rgb(77, 85, 93);
 }
+
 .tab .tab-item .active {
   color: rgb(240, 20, 20);
 }
