@@ -5,10 +5,18 @@
 </template>
 
 <script>
+import { recombineImg } from "common/js/util";
 export default {
-  props: ["color", "name"],
+  props: ["color", "name", "img"],
   computed: {
     iconStyle() {
+      if (this.img) {
+        return {
+          width: "0.10rem",
+          height: "0.10rem",
+          "background-image": `url(${recombineImg(this.img)})`
+        };
+      }
       return this.color ? { background: `#${this.color}` } : {};
     }
   }
@@ -39,6 +47,8 @@ export default {
   // display: inline-block;
   color: #ffffff;
   margin: 0;
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 </style>
 

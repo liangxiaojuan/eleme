@@ -49,14 +49,9 @@ export function setFontSize() {
   let h;
   if (window.screen.orientation && (window.screen.orientation.angle == 90 || window.screen.orientation.angle == -90)) {
     h = document.documentElement.clientWidth;
-    // $('html').css('font-size', h / 667 * 100);
-    console.log(123);
     document.getElementsByTagName('html')[0]['style']['fontSize'] = h / 667 * 100 + 'px';
   } else {
     h = document.documentElement.clientWidth;
-    console.log(h / 375 * 100);
-    // $('html').css('font-size', h / 375 * 100);
     document.getElementsByTagName('html')[0]['style']['fontSize'] = h / 375 * 100 + 'px';
-    // document.getElementsByTagName('html')[0]['style']['backgroundColor'] = 'red';
   }
 }

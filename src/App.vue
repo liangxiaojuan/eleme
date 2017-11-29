@@ -94,7 +94,6 @@ export default {
       left: 0;
       right: 0;
       height: 0.08rem;
-      height: 0.8vw;
       background-color: #2395ff;
     }
   }
