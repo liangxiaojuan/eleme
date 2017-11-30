@@ -39,7 +39,6 @@ export default {
       seller: {},
       id: (() => {
         let queryParam = urlParse();
-        console.log(queryParam);
         return queryParam.id;
       })()
     };
@@ -52,7 +51,7 @@ export default {
     //      this.seller = Object.assign({}, this.seller, response.data);
     //    }
     //  });
-
+  console.log(seller);
     this.seller = seller;
   },
   components: {

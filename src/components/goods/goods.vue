@@ -15,8 +15,7 @@
       <ul>
         <li v-for="(item,index) in goods" :key="index" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}
-   <span class="text">{{item.description}}</span>
-
+            <span class="text">{{item.description}}</span>
           </h1>
        
           <ul>
@@ -30,9 +29,9 @@
                 <div class="extra">
                   <span class="count">月售{{food.month_sales}}份</span><span class="count">好评{{food.satisfy_rate}}%</span>
                 </div>
-                 <div class="discount">
-                 <span class="nummber">7.5折</span>
-                 <span class="count">每单限{{food.activity.max_quantity}}份优惠</span>
+                 <div class="discount" v-if="food.activity">
+                 <span class="nummber">{{(food.specfoods[0].price/food.specfoods[0].original_price*10).toFixed(1)}}折</span>
+                 <span class="count">每单限{{food.activity ? food.activity.max_quantity: ''}}份优惠</span>
                 </div>
                 <div class="price">
                   <span class="now">￥{{food.specfoods[0].price}}</span><span class="old"
@@ -48,8 +47,9 @@
       </ul>
     </div>
     <div>
-      <!-- <shopCart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
-                :min-price="seller.minPrice" ref="shopCart"></shopCart> -->
+      
+      <shopCart :select-foods="selectFoods" :delivery-price="seller.float_delivery_fee"
+                :min-price="seller.float_minimum_order_amount" ref="shopCart"></shopCart>
       <food :food="selectedFood" ref="food"></food>
     </div>
   </div>
@@ -60,6 +60,7 @@ import shopCart from "../shopcart/shopCart.vue";
 import cartControl from "../cartControl/cartControl.vue";
 import food from "../food/food.vue";
 import data from "common/json/menu.json";
+import seller from "common/json/seller.json";
 import { recombineImg } from "common/js/util";
 //  const ERR_OK = 0;
 export default {
@@ -87,7 +88,8 @@ export default {
     //       });
     //        }
     //      });
-    console.log(data);
+    console.log(this.seller);
+    this.seller = seller;
     this.goods = data;
     this.$nextTick(() => {
       this._initScroll();
@@ -250,6 +252,8 @@ export default {
 
   .foods-wrapper {
     flex: 1;
+    // padding-right: 3rem;
+    width: 2rem;
     .food-list {
       .title {
         padding-left: 0.14rem;
@@ -310,6 +314,9 @@ export default {
           .desc {
             margin-bottom: 0.08rem;
             line-height: 0.12rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
 
           .extra {
@@ -341,9 +348,9 @@ export default {
           }
 
           .price {
-            font-weight: 7rem;
+            font-weight: 700;
             line-height: 0.24rem;
-
+            // margin: 0;
             .now {
               margin-right: 0.08rem;
               font-size: 0.14rem;
@@ -355,6 +362,7 @@ export default {
               color: rgb(147, 153, 159);
               text-decoration: line-through;
             }
+            font-size: 0.1rem;
           }
 
           .cartControl-wrapper {
