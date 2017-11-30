@@ -38,7 +38,7 @@
                                                                 v-if="food.specfoods[0].original_price">￥{{food.specfoods[0].original_price}}</span>
                 </div>
                 <div class="cartControl-wrapper">
-                  <cartControl :food="food" @increment="incrementTotal"></cartControl>
+                  <cartControl :food="food" @increment="incrementTotal" @showMoveDot="showMoveDotFun"></cartControl>
                 </div>
               </div>
             </li>
@@ -51,6 +51,17 @@
       <shopCart :select-foods="selectFoods" :delivery-price="seller.float_delivery_fee"
                 :min-price="seller.float_minimum_order_amount" ref="shopCart"></shopCart>
       <food :food="selectedFood" ref="food"></food>
+             <transition
+        appear
+        @after-appear = 'afterEnter'
+        @before-appear="beforeEnter"
+        v-for="(item,index) in showMoveDot"
+        >
+           <div class="ball">
+              <div class="inner inner-hook">
+              </div>
+            </div>
+        </transition>
     </div>
   </div>
 </template>
@@ -60,13 +71,15 @@ import shopCart from "../shopcart/shopCart.vue";
 import cartControl from "../cartControl/cartControl.vue";
 import food from "../food/food.vue";
 import data from "common/json/menu.json";
-import seller from "common/json/seller.json";
 import { recombineImg } from "common/js/util";
 //  const ERR_OK = 0;
 export default {
   props: {
     seller: {
-      type: Object
+      type: Object,
+      default: () => {
+        return {};
+      }
     }
   },
   data() {
@@ -74,7 +87,11 @@ export default {
       goods: [],
       listHeight: [],
       scrolly: 0,
-      selectedFood: {}
+      selectedFood: {},
+      showMoveDot: [],
+      elLeft: "",
+      elBottom: "",
+      windowHeight: null // 屏幕的高度
     };
   },
   created() {
@@ -88,8 +105,8 @@ export default {
     //       });
     //        }
     //      });
-    console.log(this.seller);
-    this.seller = seller;
+    // console.log(this.seller);
+    // this.seller = seller;
     this.goods = data;
     this.$nextTick(() => {
       this._initScroll();
@@ -101,6 +118,7 @@ export default {
     //      this.$nextTick(() => {
     //       this._initScroll();
     //      });
+    this.windowHeight = window.innerHeight;
   },
   computed: {
     currentIndex() {
@@ -174,6 +192,37 @@ export default {
     },
     _recombineImg(imgUrl) {
       return recombineImg(imgUrl);
+    },
+    beforeEnter(el) {
+      el.style.transform = `translate3d(0,${37 +
+        this.elBottom -
+        this.windowHeight}px,0)`;
+      el.children[0].style.transform = `translate3d(${this.elLeft - 30}px,0,0)`;
+      el.children[0].style.opacity = 0;
+    },
+    showMoveDotFun(showMoveDot, elLeft, elBottom) {
+      this.showMoveDot = [...this.showMoveDot, ...showMoveDot];
+      // this.showMoveDot = showMoveDot;
+      this.elLeft = elLeft;
+      this.elBottom = elBottom;
+    },
+    afterEnter(el) {
+      el.style.transform = `translate3d(0,0,0)`;
+      el.children[0].style.transform = `translate3d(0,0,0)`;
+      el.style.transition =
+        "transform .55s cubic-bezier(0.3, -0.25, 0.7, -0.15)";
+      el.children[0].style.transition = "transform .55s linear";
+      this.showMoveDot = this.showMoveDot.map(item => false);
+      el.children[0].style.opacity = 1;
+      el.children[0] &&
+        el.children[0].addEventListener("transitionend", () => {
+          // console.log(this.$refs.shopCart);
+          this.$refs.shopCart.listenInCart();
+        });
+      el.children[0] &&
+        el.children[0].addEventListener("webkitAnimationEnd", () => {
+          this.$refs.shopCart.listenInCart();
+        });
     }
   },
   components: {
@@ -372,6 +421,28 @@ export default {
           }
         }
       }
+    }
+  }
+  .ball {
+    position: fixed;
+    left: 0.3rem;
+    bottom: 0.3rem;
+    z-index: 49;
+    // transition: all 0.6s cubic-bezier(0.49, -0.29, 0.75, 0.41);
+
+    // &.drop-enter-active, &.drop-leave-active {
+    // transition: all 0.4s linear
+    // }
+    // &.drop-enter, &.drop-leave-active {
+    // opacity: 0
+    // transform translate3d(24rem, 0, 0)
+    // }
+    .inner {
+      width: 0.16rem;
+      height: 0.16rem;
+      border-radius: 50%;
+      background: rgb(0, 160, 220);
+      transition: all 0.4s linear;
     }
   }
 }

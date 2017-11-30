@@ -19,8 +19,16 @@ import Vue from "vue";
 export default {
   props: {
     food: {
-      type: Object
+      type: Object,
+      default: () => {
+        return {};
+      }
     }
+  },
+  data() {
+    return {
+      showMoveDot: [] // 控制下落的小圆点显示隐藏
+    };
   },
   methods: {
     addCart(event) {
@@ -33,8 +41,10 @@ export default {
       } else {
         this.food.count++;
       }
-      //        event.srcElement.outerHTML
-      this.$emit("increment", event.target); // 子组件通过 $emit触发父组件的方法 increment   还
+      let elLeft = event.target.getBoundingClientRect().left;
+      let elBottom = event.target.getBoundingClientRect().bottom;
+      this.showMoveDot = [true];
+      this.$emit("showMoveDot", this.showMoveDot, elLeft, elBottom);
     },
     decreaseCart(event) {
       if (!event._constructed) {
