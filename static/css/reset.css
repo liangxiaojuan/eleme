@@ -85,6 +85,7 @@ html, body {
   font-family: 'Helvetica Neue',Tahoma,Arial,PingFangSC-Regular,'Hiragino Sans GB','Microsoft Yahei',sans-serif;
   -webkit-font-smoothing: antialiased;
   margin: 0;
+
 }
 
 body {
@@ -93,3 +94,20 @@ body {
   background-color: #ffffff;
 
 }
+
+
+/* html {
+  box-sizing: border-box;
+  background-color: #f5f5f5;
+  color: #333;
+  font-family: 'Helvetica Neue', Tahoma, Arial, PingFangSC-Regular, 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+  line-height: 1.2;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+} */
+
+

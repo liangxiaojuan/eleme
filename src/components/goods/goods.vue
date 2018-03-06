@@ -20,6 +20,7 @@
        
           <ul>
             <li v-for="(food,index) in item.foods"  :key="index" class="food-item" @click="selectFood(food, $event)">
+              <!-- <div></div> -->
               <div class="icon">
                 <img :src="_recombineImg(food.image_path)" alt="" >
               </div>
@@ -50,13 +51,11 @@
       
       <shopCart :select-foods="selectFoods" :delivery-price="seller.float_delivery_fee"
                 :min-price="seller.float_minimum_order_amount" ref="shopCart"></shopCart>
-      <food :food="selectedFood" ref="food"></food>
-             <transition
-        appear
+      <food :food="selectedFood" :callback="showMoveDotFun" :increment="incrementTotal" ref="food"></food>
+             <transition appear
         @after-appear = 'afterEnter'
         @before-appear="beforeEnter"
-        v-for="(item,index) in showMoveDot"
-        >
+        v-for="(item,index) in showMoveDot" :key="index">
            <div class="ball">
               <div class="inner inner-hook">
               </div>
@@ -180,6 +179,7 @@ export default {
       this.foodScroll.scrollToElement(el, 300);
     },
     selectFood(food, event) {
+      console.log(event);
       if (!event._constructed) {
         // 去掉自带click事件的点击
         return;

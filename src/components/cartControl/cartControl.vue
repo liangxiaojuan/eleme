@@ -32,43 +32,46 @@ export default {
   },
   methods: {
     addCart(event) {
-      if (!event._constructed) {
-        // 去掉自带click事件的点击
-        return;
-      }
+      // if (!event._constructed) {
+      //   // 去掉自带click事件的点击
+      //   return;
+      // }
       if (!this.food.count) {
         Vue.set(this.food, "count", 1);
       } else {
         this.food.count++;
       }
       let elLeft = event.target.getBoundingClientRect().left;
-      let elBottom = event.target.getBoundingClientRect().bottom;
+      let elBottom = event.target.getBoundingClientRect().bottom - 20;
       this.showMoveDot = [true];
       this.$emit("showMoveDot", this.showMoveDot, elLeft, elBottom);
     },
     decreaseCart(event) {
-      if (!event._constructed) {
-        // 去掉自带click事件的点击
-        return;
-      }
+      // if (!event._constructed) {
+      //   // 去掉自带click事件的点击
+      //   return;
+      // }
       this.food.count--;
     }
   }
 };
 </script>
-<style lang="stylus" scoped>
+<style lang="less" scoped>
 .cartControl {
   font-size: 0;
 
-  .cart-decrease, .cart-add {
+  .cart-decrease,
+  .cart-add {
     display: inline-block;
     padding: 0.04rem 0.06rem 0.06rem 0.06rem;
 
-    &.fade-enter-active, &.fade-leave-active {
+    &.fade-enter-active,
+    &.fade-leave-active {
       transition: all 0.4s linear;
     }
 
-    &.fade-enter, &.fade-leave-active {
+    &.fade-enter,
+    &.fade-leave-active {
       opacity: 0;
       transform: translate3d(0.24rem, 0, 0);
     }
@@ -80,12 +83,14 @@ export default {
       vertical-align: top;
       color: rgb(0, 160, 220, 0.2);
 
-      &.inner-enter-active, &.inner-leave-active {
+      &.inner-enter-active,
+      &.inner-leave-active {
         transition: all 0.4s linear;
         transform: rotate(0);
       }
 
-      &.inner-enter, &.inner-leave-active {
+      &.inner-enter,
+      &.inner-leave-active {
         opacity: 0;
         transform: rotate(180deg);
       }

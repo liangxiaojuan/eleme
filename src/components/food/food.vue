@@ -1,60 +1,29 @@
 <template>
   <transition name="fade">
     <div v-show="showFlag" class="food">
-      <div class="fond-content">
+      <div class="food-marker" @click.stop.prevent="showFlag=false"></div>
+      <div class="food-content">
         <div class="image-header">
-          <img :src="food.image" alt="">
-          <div class="back" @click="hide">
-            <i class="iconfont icon-weibiaoti6-copy"></i>
-          </div>
+         <img :src="_recombineImg(food.image_path)" alt="" class="img">
+          <p class="description">{{food.description}}</p>
         </div>
-        <div class="content">
-          <h1 class="title">{{food.name}}</h1>
-          <div class="detail">
-            <span class="sell-count">月售{{food.sellCount}}份</span>
-            <span class="rating"> 好评率{{food.rating}}%</span>
-          </div>
-          <div class="price">
-            <span class="now">￥{{food.price}}</span>
-            <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
-          </div>
-          <div class="cartControl-wrapper">
-            <cartControl :food="food"></cartControl>
-          </div>
-          <transition name="buy">
-            <div class="buy" @click.stop.prevent="addFirst($event)" v-show="!food.count || food.count === 0">
-              加入购物车
-            </div>
-          </transition>
-        </div>
-        <split></split>
-        <div class="info" v-show="food.info">
-          <h1 class="title">商品信息</h1>
-          <p class="text">{{food.info}}</p>
-        </div>
-        <split></split>
-        <div class="rating">
-          <h1 class="title">商品评价</h1>
-          <ratingselect @increment="incrementTotal" :select-type="selectType" :only-content="onlyContent" :desc="desc"
-                        :ratings="food.ratings"></ratingselect>
-          <div class="rating-wrapper">
-            <ul v-show="food.ratings && food.ratings.length">
-              <li v-show="needShow(rating.rateType, rating.text)" class="rating-item border-1px"
-                  v-for="rating in food.ratings">
-                <div class="user">
-                  <span class="name">{{rating.username}}</span>
-                  <img width="12" height="12" :src=rating.avatar alt="" class="avatar">
+        <div class="food-info">
+             <h2 class="name">{{food.name}}</h2>
+                <!-- <p class="desc">{{food.description}}</p> -->
+                <div class="extra">
+                  <span class="count">月售{{food.month_sales}}份</span><span class="count">好评{{food.satisfy_rate}}%</span>
                 </div>
-                <div class="time">{{rating.rateTime | formatDate}}</div>
-                <p class="text">
-                  <i class="iconfont"
-                     :class="{'icon-damuzhi':rating.rateType === 0,'icon-down':rating.rateType === 1,}"></i>
-                  {{rating.text}}
-                </p>
-              </li>
-            </ul>
-            <div class="no-rating" v-show="!food.ratings || food.ratings.length === 0"></div>
-          </div>
+                 <div class="discount" v-if="food.activity">
+                 <span class="nummber">{{(food.specfoods[0].price/food.specfoods[0].original_price*10).toFixed(1)}}折</span>
+                 <span class="count">每单限{{food.activity ? food.activity.max_quantity: ''}}份优惠</span>
+                </div>
+                <div class="price" v-if=" food.specfoods  && food.specfoods.length>0">
+                  <span class="now" >￥{{food.specfoods[0].price}}</span><span class="old"
+                                                                v-if="food.specfoods[0].original_price">￥{{food.specfoods[0].original_price}}</span>
+                </div>
+                <div class="cartControl-wrapper">
+                  <cartControl :food="food" @increment="increment" @showMoveDot="callback"></cartControl>
+                </div>
         </div>
       </div>
     </div>
@@ -63,12 +32,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-import BScroll from "better-scroll";
-import cartControl from "../cartControl/cartControl.vue";
-import split from "../split/split.vue";
-import ratingselect from "../ratingselect/ratingselect.vue";
+// import BScroll from "better-scroll";
 import Vue from "vue";
 import { formatDate } from "../../common/js/date";
+import { recombineImg } from "common/js/util";
+import cartControl from "../cartControl/cartControl.vue";
 //  const POSITIVE = 0;
 //  const NEGATIVE = 1;
 const ALL = 2;
@@ -76,34 +44,41 @@ export default {
   props: {
     food: {
       type: Object
+    },
+    callback: {
+      type: Function
+    },
+    increment: {
+      type: Function
     }
   },
   data() {
     return {
       showFlag: false,
       selectType: ALL,
-      onlyContent: true,
-      desc: {
-        all: "全部",
-        positive: "推荐",
-        negative: "吐槽"
-      }
+      onlyContent: true
     };
+  },
+  components: {
+    cartControl
   },
   methods: {
     show() {
       this.showFlag = true;
       this.selectType = ALL;
       this.onlyContent = true;
-      this.$nextTick(() => {
-        if (!this.scroll) {
-          this.scroll = new BScroll(this.$el, {
-            click: true
-          });
-        } else {
-          this.scroll.refresh();
-        }
-      });
+      // this.$nextTick(() => {
+      //   if (!this.scroll) {
+      //     this.scroll = new BScroll(this.$el, {
+      //       click: true
+      //     });
+      //   } else {
+      //     this.scroll.refresh();
+      //   }
+      // });
+    },
+    _recombineImg(imgUrl) {
+      return recombineImg(imgUrl, 320);
     },
     incrementTotal(type, data) {
       this[type] = data;
@@ -136,17 +111,10 @@ export default {
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm");
     }
-  },
-  components: {
-    cartControl,
-    ratingselect,
-    split
   }
 };
 </script>
 <style lang="less" >
-// @import '../../common/stylus/mixin.less';
-
 .food {
   position: fixed;
   left: 0;
@@ -154,210 +122,116 @@ export default {
   bottom: 0.48rem;
   z-index: 30;
   width: 100%;
-  background: #ffffff;
-
-  &.fade-enter-active, &.fade-leave-active {
+  // background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.1rem;
+  &.fade-enter-active,
+  &.fade-leave-active {
     transition: all 0.2s linear;
     transform: translate3d(0, 0, 0);
   }
 
-  &.fade-enter, &.fade-leave-active {
+  &.fade-enter,
+  &.fade-leave-active {
     opacity: 0;
     transform: translate3d(100%, 0, 0);
   }
-
-  .image-header {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-top: 100%;
-
-    img {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .back {
-      position: absolute;
-      top: 0.1rem;
-      left: 0;
-
-      .iconfont {
-        display: block;
-        padding: 0.1rem;
-        font-size: 0.2rem;
-        color: #ffffff;
-      }
-    }
+  .food-marker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
   }
-
-  .content {
+  .food-content {
     position: relative;
-    padding: 0.18rem;
-
-    .title {
-      line-height: 0.14rem;
-      margin-bottom: 0.08rem;
-      font-size: 0.14rem;
-      font-weight: 700;
-      color: rgb(7, 17, 27);
-    }
-
-    .detail {
-      margin-bottom: 0.18rem;
-      line-height: 0.1rem;
-      font-size: 0;
-      height: 10rem;
-
-      .sell-count, .rating {
-        font-size: 0.1rem;
-        display: inline-block;
-        color: rgb(147, 153, 159);
+    z-index: 13;
+    width: 3.2rem;
+    height: 4.28rem;
+    background: #ffffff;
+    border-radius: 0.05rem;
+    .image-header {
+      width: 3.2rem;
+      height: 3.2rem;
+      position: relative;
+      .description {
+        font-size: 0.12rem;
+        color: #ddd;
+        letter-spacing: 0;
+        line-height: 0.12rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0 0.1rem 0.1rem;
       }
-
-      .sell-count {
-        margin-right: 0.12rem;
+      .img {
+        width: 3.2rem;
+        height: 3.2rem;
       }
     }
-
-    .price {
-      font-weight: 7rem;
-      line-height: 0.24rem;
-
-      .now {
-        margin-right: 0.08rem;
+    .food-info {
+      position: relative;
+      padding: .15rem .15rem 0;
+      .name {
+        margin: 0.02rem 0 0.08rem 0;
         font-size: 0.14rem;
-        color: rgb(240, 20, 20);
+        line-height: 0.14rem;
+        // height: 0.14rem;
+        color: #333;
+        font-weight: 500;
       }
-
-      .old {
+      .extra {
         font-size: 0.1rem;
+        line-height: 0.1rem;
         color: rgb(147, 153, 159);
-        text-decoration: line-through;
       }
-    }
-
-    .cartControl-wrapper {
-      position: absolute;
-      right: 0.12rem;
-      bottom: 0.12rem;
-    }
-
-    .buy {
-      position: absolute;
-      right: 0.18rem;
-      bottom: 0.18rem;
-      z-index: 10;
-      height: 0.24rem;
-      line-height: 0.24rem;
-      padding: 0 0.12rem;
-      box-sizing: border-box;
-      border-radius: 0.12rem;
-      font-size: 0.1rem;
-      color: #fff;
-      background: rgb(0, 160, 220);
-
-      &.buy-enter-active, &.buy-leave-active {
-        transition: all 0.2s;
-        opacity: 0;
+      .discount {
+        margin-top: 0.05rem;
+        width: 1.2rem;
+        height: 0.14rem;
+        display: flex;
+        border: 0.5px solid #ff3c15;
+        font-size: 0.12rem;
+        // justify-content: center;
+        align-items: center;
+        .nummber {
+          width: 0.35rem;
+          font-size: 0.12rem;
+          color: #ffffff;
+          // vertical-align: top;
+          background-color: #ff3c15;
+          padding: 0.01rem 0.02rem;
+        }
+        .count {
+          color: #ff3c15;
+          padding: 0.01rem 0rem;
+        }
       }
-
-      &.buy-enter, &.buy-leave-active {
-        opacity: 0;
-      }
-    }
-  }
-
-  .info {
-    padding: 0.18rem;
-
-    .title {
-      line-height: 0.14rem;
-      margin-bottom: 0.06rem;
-      font-size: 0.14rem;
-      color: rgb(7, 17, 27);
-    }
-
-    .text {
-      font-size: 0.12rem;
-      line-height: 0.24rem;
-      padding: 0 0.08rem;
-      color: rgb(77, 85, 93);
-    }
-  }
-
-  .rating {
-    padding-top: 0.18rem;
-
-    .title {
-      line-height: 0.14rem;
-      margin-left: 0.18rem;
-      font-size: 0.14rem;
-      color: rgb(7, 17, 27);
-    }
-
-    .rating-wrapper {
-      padding: 0 0.18rem;
-
-      .rating-item {
-        position: relative;
-        padding: 0.16rem 0;
-        // border-1rem(rgba(1, 17, 27, 0.1));
-
-        .user {
-          position: absolute;
-          right: 0;
-          top: 0.16rem;
-          font-size: 0;
-          line-height: 0.12rem;
-
-          .name {
-            display: inline-block;
-            vertical-align: top;
-            font-size: 0.1rem;
-            color: rgb(147, 153, 159);
-            margin-right: 0.06rem;
-          }
-
-          .avatar {
-            border-radius: 50%;
-          }
+      .price {
+        font-weight: 700;
+        line-height: 0.24rem;
+        // margin: 0;
+        .now {
+          margin-right: 0.08rem;
+          font-size: 0.14rem;
+          color: rgb(240, 20, 20);
         }
 
-        .time {
-          margin-bottom: 0.06rem;
-          line-height: 0.12rem;
+        .old {
           font-size: 0.1rem;
           color: rgb(147, 153, 159);
+          text-decoration: line-through;
         }
-
-        .text {
-          line-height: 0.16rem;
-          font-size: 0.12rem;
-          color: rgb(7, 17, 27);
-
-          .iconfont {
-            margin-right: 0.04rem;
-            line-height: 0.16rem;
-            font-size: 0.12rem;
-          }
-
-          .icon-damuzhi {
-            color: rgb(0, 160, 220);
-          }
-
-          .icon-down {
-            color: rgb(147, 153, 159);
-          }
-        }
+        font-size: 0.1rem;
       }
-
-      .no-rating {
-        padding: 0.16rem 0;
-        font-size: 0.12rem;
-        color: rgb(147, 153, 159);
+      .cartControl-wrapper {
+        position: absolute;
+        right: 0;
+        bottom: 0.12rem;
       }
     }
   }
