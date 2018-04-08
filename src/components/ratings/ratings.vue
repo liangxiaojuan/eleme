@@ -4,24 +4,24 @@
     <div class="ratings-content">
       <div class="overview">
         <div class="overview-left">
-          <h1 class="score">{{seller.score}}</h1>
+          <h1 class="score">{{seller.rating}}</h1>
           <div class="title">综合评分</div>
-          <div class="rank">高于周边商家{{seller.rankRate}}%</div>
+          <div class="rank">高于周边商家{{seller.rating}}%</div>
         </div>
         <div class="overview-right">
           <div class="score-wrapper">
             <span class="title">服务态度</span>
-            <star :size="36" :score="seller.serviceScore"></star>
-            <span class="score">{{seller.serviceScore}}</span>
+            <star :size="36" :score="seller.rating"></star>
+            <span class="score">{{seller.rating}}</span>
           </div>
           <div class="score-wrapper">
             <span class="title">商品评分</span>
-            <star :size="36" :score="seller.foodScore"></star>
-            <span class="score">{{seller.foodScore}}</span>
+            <star :size="36" :score="seller.rating"></star>
+            <span class="score">{{seller.rating}}</span>
           </div>
           <div class="delivery-wrapper">
             <span class="title">送达时间</span>
-            <span class="delivery">{{seller.deliveryTime}}分钟</span>
+            <span class="delivery">{{seller.rating}}分钟</span>
           </div>
         </div>
       </div>
@@ -94,7 +94,8 @@ export default {
     //          });
     //        }
     //      });
-    this.ratings = data.ratings;
+    console.log(this.seller);
+    this.ratings = data;
     this.$nextTick(() => {
       console.log(this.$el);
       this.scroll = new BScroll(this.$el, { click: true });

@@ -28,7 +28,7 @@
             <ul>
               <li class="shopcart-food" v-for="food in selectFoods">
                 <span class="name">{{food.name}}</span>
-                <div class="price"><span>￥{{food.price * food.count}}</span></div>
+                <div class="price"><span>￥{{food.specfoods[0].price * food.count}}</span></div>
                 <div class="cartControl-wrapper">
                   <cartControl :food="food"></cartControl>
                 </div>
@@ -74,12 +74,13 @@ export default {
     totalPrice() {
       let total = 0;
       this.selectFoods.forEach(food => {
-        total += food.price * food.count;
+        total += food.specfoods[0].price * food.count;
       });
       return total;
     },
     totalCount() {
       let count = 0;
+      console.log(this.selectFoods);
       this.selectFoods.forEach(food => {
         count += food.count;
       });
@@ -412,10 +413,11 @@ export default {
 
       .shopcart-food {
         position: relative;
-        padding: 0.12rem 0;
+        // padding: 0.12rem 0;
         box-sizing: border-box;
         // border-1rem(rgba(7, 17, 27, 0.1));
-
+        // height: 1rem;
+        line-height: 0rem;
         .name {
           line-height: 0.24rem;
           font-size: 0.14rem;
@@ -425,7 +427,7 @@ export default {
         .price {
           position: absolute;
           right: 0.9rem;
-          bottom: 0.12rem;
+          bottom: 0.02rem;
           line-height: 0.24rem;
           font-size: 0.14rem;
           font-weight: 700;
@@ -435,7 +437,7 @@ export default {
         .cartControl-wrapper {
           position: absolute;
           right: 0;
-          bottom: 0.06rem;
+          bottom: -0.04rem;
         }
       }
     }
