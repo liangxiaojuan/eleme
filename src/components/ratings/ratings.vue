@@ -4,24 +4,24 @@
     <div class="ratings-content">
       <div class="overview">
         <div class="overview-left">
-          <h1 class="score">{{seller.rating}}</h1>
-          <div class="title">综合评分</div>
-          <div class="rank">高于周边商家{{seller.rating}}%</div>
+          <h1 class="score">{{toFixedFun(scores.overall_score)}}</h1>
+          <div class="title">综合评价</div>
+          <div class="rank">高于周边商家{{toFixedFun(scores.compare_rating * 100)}}%</div>
         </div>
         <div class="overview-right">
           <div class="score-wrapper">
             <span class="title">服务态度</span>
-            <star :size="36" :score="seller.rating"></star>
-            <span class="score">{{seller.rating}}</span>
+            <star :size="36" :score="scores.service_score"></star>
+            <span class="score">{{scores.service_score}}</span>
           </div>
           <div class="score-wrapper">
             <span class="title">商品评分</span>
-            <star :size="36" :score="seller.rating"></star>
-            <span class="score">{{seller.rating}}</span>
+            <star :size="36" :score="scores.food_score"></star>
+            <span class="score">{{toFixedFun(scores.food_score)}}</span>
           </div>
           <div class="delivery-wrapper">
             <span class="title">送达时间</span>
-            <span class="delivery">{{seller.rating}}分钟</span>
+            <span class="delivery">{{scores.deliver_time}}分钟</span>
           </div>
         </div>
       </div>
@@ -70,17 +70,20 @@ import data from "common/json/ratings.json";
 const ALL = 2;
 //  const ERR_OK = 0;
 export default {
-  props: {
-    seller: {
-      type: Object
-    }
-  },
   data() {
     return {
       ratings: [],
       showFlag: false,
       selectType: ALL,
-      onlyContent: true
+      onlyContent: true,
+      scores: {
+        compare_rating: 0.5777777777777777,
+        deliver_time: 29,
+        food_score: 4.52043,
+        order_rating_amount: 459,
+        overall_score: 4.87852,
+        service_score: 5
+      }
     };
   },
   created() {
@@ -94,7 +97,7 @@ export default {
     //          });
     //        }
     //      });
-    console.log(this.seller);
+    console.log(this.scores);
     this.ratings = data;
     this.$nextTick(() => {
       console.log(this.$el);
@@ -107,6 +110,9 @@ export default {
       this.$nextTick(() => {
         this.scroll.refresh();
       });
+    },
+    toFixedFun(value) {
+      return parseFloat(value).toFixed(1);
     },
     needShow(type, text) {
       if (this.onlyContent && !text) {
@@ -133,7 +139,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import '../../common/stylus/mixin.less';
+@import "../../common/stylus/mixin.less";
 
 .ratings {
   position: absolute;
@@ -145,7 +151,7 @@ export default {
 
   .overview {
     display: flex;
-    padding: 0.18rem 0 0.18rem 0.18rem;
+    padding: 0.1rem 0 0.1rem 0.1rem;
 
     .overview-left {
       flex: 0 0 1.37rem;
@@ -154,16 +160,18 @@ export default {
       border-right: 0.01rem solid rgba(7, 17, 27, 0.1);
       text-align: center;
 
-      @media only screen and (max-width: 320rem) {
-        flex: 0 0 1.10rem;
-        width: 1.10rem;
-      }
+      // @media only screen and (max-width: 320rem) {
+      //   flex: 0 0 1.37rem;
+      //   width: 1.37rem;
+      // }
 
       .score {
-        margin-bottom: 0.12rem;
-        line-height: 0.28rem;
-        font-size: 0.24rem;
-        color: rgb(255, 153, 0);
+        font-size: 0.28rem;
+        line-height: 0.4rem;
+        font-weight: 400;
+        color: #ff6000;
+        font-weight: 700;
+        display: block;
       }
 
       .title {
@@ -174,7 +182,7 @@ export default {
       }
 
       .rank {
-        line-height: 0.10rem;
+        line-height: 0.1rem;
         font-size: 0.12rem;
         color: rgb(147, 153, 159);
       }
@@ -184,13 +192,13 @@ export default {
       flex: 1;
       padding: 0.06rem 0 0.06rem 0.24rem;
 
-      @media only screen and (max-width: 3.20rem) {
+      @media only screen and (max-width: 3.2rem) {
         padding-left: 0.06rem;
       }
 
       .score-wrapper {
         line-height: 0.18rem;
-        margin-top: 0.08rem;
+        margin-top: 0.05rem;
         font-size: 0;
 
         .title {
@@ -245,7 +253,7 @@ export default {
     .rating-item {
       display: flex;
       padding: 0.18rem 0;
-       .border-1px(rgba(1, 17, 27, 0.1));
+      .border-1px(rgba(1, 17, 27, 0.1));
 
       .avatar {
         flex: 0 0 0.28rem;
@@ -265,7 +273,7 @@ export default {
           margin-bottom: 0.4rem;
           line-height: 0.12rem;
           font-weight: 700;
-          font-size: 0.10rem;
+          font-size: 0.1rem;
           color: rgb(7, 17, 27);
         }
 
@@ -282,7 +290,7 @@ export default {
           .delivery {
             display: inline-block;
             vertical-align: top;
-            font-size: 0.10rem;
+            font-size: 0.1rem;
             line-height: 0.12rem;
             color: rgb(147, 153, 159);
           }
@@ -299,7 +307,8 @@ export default {
           line-height: 0.16rem;
           font-size: 0;
 
-          .iconfont, .item {
+          .iconfont,
+          .item {
             display: inline-block;
             margin: 0 0.08rem 0.04rem 0;
             font-size: 0.09rem;
@@ -323,7 +332,7 @@ export default {
           top: 0;
           right: 0;
           line-height: 0.12rem;
-          font-size: 0.10rem;
+          font-size: 0.1rem;
           color: rgb(147, 153, 159);
         }
       }

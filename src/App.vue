@@ -11,7 +11,7 @@
       </div>
       <div class="tab-item">
         <router-link to="/ratings">
-          评论
+          评价
         </router-link>
       </div>
       <div class="tab-item">
@@ -22,7 +22,7 @@
     </div>
     <!-- 头部 -->
     <keep-alive>
-      <router-view :seller="seller"></router-view>
+      <router-view :seller="1"></router-view>
     </keep-alive>
 
   </div>
