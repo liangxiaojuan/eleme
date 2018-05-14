@@ -27,28 +27,31 @@
       </div>
     </div>
     <split></split>
-    <ratingselect  @increment="incrementTotal" :select-type="selectType" :only-content="onlyContent" :ratings="ratings"></ratingselect>
+    <ratingselect  @increment="incrementTotal" :select-type="selectType" :only-content="false" :ratings="ratings"></ratingselect>
     <div class="rating-wrapper border-1px">
       <ul>
         <li v-for="rating in ratings" class="rating-item" v-show="needShow(rating.rateType, rating.text)">
           <div class="avatar">
-            <img :src="rating.avatar" alt="" width="28" height="28">
+            <img :src="rating.avatar?  _recombineImg(rating.avatar,'60'): avatar" alt="" width="28" height="28">
           </div>
           <div class="content">
             <h1 class="name">{{rating.username}}</h1>
             <div class="star-wrapper">
-              <star :size="24" :score="rating.score"></star>
+              <star :size="24" :score="rating.rating"></star>
               <span class="delivery" v-show="rating.deliveryTime">
                 {{rating.deliveryTime}}
               </span>
             </div>
-            <p class="text">{{rating.text}}</p>
-            <div class="recommend" v-show="rating.recommend &&rating.recommend.length">
-              <i class="iconfont icon-damuzhi"></i>
-              <span  class="item" v-for="item in rating.recommend" >{{item}}</span>
+            <p class="text">{{rating.rating_text}}</p>
+            <div class="imgs" v-if="rating.order_images &&rating.order_images.length">
+               <img  class="img" v-for="item in rating.order_images" :src="item.image_hash?  _recombineImg(item.image_hash,'142'): ''" alt="" width="28" height="28">
+            </div>
+            <div class="recommend" v-if="rating.food_ratings &&rating.food_ratings.length">
+              <!-- <i class="iconfont icon-damuzhi"></i> -->
+              <span  class="item" v-for="item in rating.food_ratings" >{{item.rate_name}}</span>
             </div>
             <div class="time">
-              {{rating.rateTime | formatDate}}
+              {{rating.rated_at}}
             </div>
           </div>
         </li>
@@ -65,6 +68,7 @@ import split from "../split/split.vue";
 import ratingselect from "../ratingselect/ratingselect.vue";
 import { formatDate } from "../../common/js/date";
 import data from "common/json/ratings.json";
+import { recombineImg } from "common/js/util";
 //  const POSITIVE = 0;
 //  const NEGATIVE = 1;
 const ALL = 2;
@@ -75,7 +79,9 @@ export default {
       ratings: [],
       showFlag: false,
       selectType: ALL,
-      onlyContent: true,
+      onlyContent: false,
+      avatar:
+        "https://fuss10.elemecdn.com/c/f5/d0b0f2fc83f3ac3e4a0cfae891256png.png?imageMogr/format/webp/thumbnail/!60x60r/gravity/Center/crop/60x60/",
       scores: {
         compare_rating: 0.5777777777777777,
         deliver_time: 29,
@@ -111,6 +117,9 @@ export default {
         this.scroll.refresh();
       });
     },
+    _recombineImg(url, size) {
+      return recombineImg(url, size);
+    },
     toFixedFun(value) {
       return parseFloat(value).toFixed(1);
     },
@@ -127,6 +136,7 @@ export default {
   },
   filters: {
     formatDate(time) {
+      console.log(time);
       let date = new Date(time);
       return formatDate(date, "yyyy-MM-dd hh:mm");
     }
@@ -254,9 +264,11 @@ export default {
       display: flex;
       padding: 0.18rem 0;
       .border-1px(rgba(1, 17, 27, 0.1));
-
+      align-self: flex-start;
       .avatar {
         flex: 0 0 0.28rem;
+        display: flex;
+        align-self: flex-start;
         width: 0.28rem;
         margin-right: 0.12rem;
 
@@ -270,7 +282,7 @@ export default {
         flex: 1;
 
         .name {
-          margin-bottom: 0.4rem;
+          margin-bottom: 0.05rem;
           line-height: 0.12rem;
           font-weight: 700;
           font-size: 0.1rem;
@@ -302,6 +314,13 @@ export default {
           font-size: 0.12rem;
           margin-bottom: 0.08rem;
         }
+        .imgs {
+          .img {
+            width: 0.71rem;
+            height: 0.71rem;
+            padding: 0 0.1rem;
+          }
+        }
 
         .recommend {
           line-height: 0.16rem;
@@ -324,6 +343,13 @@ export default {
             border-radius: 0.01rem;
             color: rgb(147, 153, 159);
             background: #ffffff;
+            //  width: 0.4rem;
+            // overflow: hidden;
+            // text-overflow: ellipsis;
+            // display: -webkit-box;
+            // display: inline-block;
+            // -webkit-line-clamp: 1;
+            // -webkit-box-orient: vertical;
           }
         }
 

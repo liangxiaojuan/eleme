@@ -10,10 +10,10 @@
             :class="{'active': selectType === 1}">{{desc.negative}}<span
         class="count">{{nagatives.length}}</span></span>
     </div>
-    <div class="switch" @click="toggleContent( $event)" :class="{'on':onlyContent}">
+    <!-- <div class="switch" @click="toggleContent( $event)" :class="{'on':onlyContent}">
       <i class="iconfont icon-gou"></i>
       <span class="text">只看有内容的评价</span>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
     },
     onlyContent: {
       type: Boolean,
-      default: false
+      default: true
     },
     desc: {
       type: Object,
